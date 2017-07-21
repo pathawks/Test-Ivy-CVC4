@@ -1,0 +1,19 @@
+<ivysettings>
+    <!-- This file contains the necessary settings to copy artifacts from Maven Central to the Sosy-Lab repository.
+       It should not be used to access this repository.
+       -->
+    <property name="repo.dir" value="${basedir}/repository"/>
+     <settings defaultResolver="${ivy.default.resolver}"/>
+    <resolvers>
+        <filesystem name="CVC4">
+          <ivy pattern="${repo.dir}/[organisation]/[module]/ivy-[revision].xml" />
+          <artifact pattern="${repo.dir}/[organisation]/[module]/[artifact]-[revision](-[classifier]).[ext]" />
+        </filesystem>
+        <chain name="extern">
+          <ibiblio name="maven2" m2compatible="true"/>
+          <ibiblio name="jcenter" m2compatible="true" root="http://jcenter.bintray.com/" />
+          <ibiblio name="restlet" m2compatible="true" root="http://maven.restlet.org/" />
+          <ibiblio name="sevntu-checkstyle" m2compatible="true" root="http://sevntu-checkstyle.github.com/sevntu.checkstyle/maven2/" />
+        </chain>
+    </resolvers>
+</ivysettings>

@@ -1,0 +1,59 @@
+This document describes how to intall new libraries or new versions
+into the repository.
+
+Warning:
+Never change existing files in the repository!
+Ivy caches them on the users' machines and will not get the new versions.
+
+There are two modes of adding libraries.
+
+1) If the library is present in the Maven Central (http://search.maven.org/),
+   you can just copy it:
+
+   ant install -Dorganisation=<GROUPID> -Dmodule=<MODULE> -Drevision=<VERSION>
+
+   Maven Central lists the values for the parameters.
+   By default, this installs all transitive dependencies as well.
+   This can be disabled by appending "-Dtransitive=false" to the ant command line.
+
+2) If the library is not present in Maven Central, you need to download it and
+   create an Ivy file for it.
+   Create a new directory in "libs/" where you put the library files and
+   a file "ivy.xml" in which the library is described.
+   Look at the files in the other directories and at
+   https://ant.apache.org/ivy/history/latest-milestone/ivyfile.html
+   for more information. At least the project URL and the license should be present in it.
+   If you only need to add a new version of an existing library, the ivy.xml file
+   usually doesn't need to be changed.
+   Then call
+
+   ./publish.sh <LIBRARY> -publishpattern "[artifact]-[revision].[ext]" -revision <VERSION>
+
+   <LIBRARY> is the name of the directory in "lib/". This assumes that
+   the JAR of the library has the file name <ARTIFACTID>-<VERSION>.jar.
+   If this is not true, adjust the publish pattern. For example,
+   for the Eclipse libraries the pattern "[artifact]_[revision](-[classifier]).[ext]"
+   can be used.
+
+Special scripts are available for SMTInterpol, Princess and LassoRanker.
+
+(1) Check out SMTInterpol from https://github.com/juergenchrist/smtinterpol,
+    run ant to build it, and then "./publish-smtinterpol.sh <DIR>" to add it
+    to the repository.
+(2) Check out Princess from svn://hal4.it.uu.se/princess/interpolation/trunk,
+    create a directory "extlibs" in the root of the Princess repository and
+    put the file "java-cup-11.jar" (http://www2.cs.tum.edu/projects/cup/java-cup-11a.jar)
+    into it. Then change to the ivy repository in the root folder and start
+    the script "./publish-princess.sh <DIR/TO/PRINCESS/SVN>". After that
+    everything should be finished.
+(3) Check out Ultimate from https://github.com/ultimate-pa/ultimate.git and 
+    then run ./publish-ultimate-lasso-ranker.sh <ultimate_dir>.
+
+
+Before committing to SVN,
+verify that the files in "repository/<ORGANISATION>/<MODULE>/" were added
+(especially the JAR files).
+
+Please add a reference to the new library or version to the file Libraries.txt.
+If you added a library with publish.sh, please add the created ivy.xml file
+to the repository as well, but not the JAR files of the library.
