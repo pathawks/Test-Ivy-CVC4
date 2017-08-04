@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info organisation="edu.nyu.acsys" module="CVC4" revision="1.5" status="release" publication="20170723131335">
+      <license name="Modified BSD License" url="https://github.com/CVC4/CVC4/blob/master/COPYING"/>
+      <description homepage="http://cvc4.cs.stanford.edu/"/>
+    </info>
+
+    <configurations>
+        <conf name="solver-cvc4"/>
+    </configurations>
+
+    <publications defaultconf="solver-cvc4">
+        <artifact name="libcvc4jni" conf="solver-cvc4" type="shared-object" ext="so"/>
+        <artifact name="libcvc4.so" conf="solver-cvc4" type="shared-object" ext="3"/>
+        <artifact name="libcvc4parser.so" conf="solver-cvc4" type="shared-object" ext="3"/>
+        <artifact name="edu.nyu.acsys.CVC4" conf="solver-cvc4" ext="jar"/>
+    </publications>
+
+    <dependencies/>
+
+</ivy-module>
